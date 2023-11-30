@@ -1,31 +1,34 @@
-def swap_characters(input_string, i, j):
-    # Convert the string to a list to make it mutable
-    string_list = list(input_string)
-
-    # Swap the characters at indices i and j
-    string_list[i], string_list[j] = string_list[j], string_list[i]
-
-    # Convert the list back to a string
-    result_string = ''.join(string_list)
-
-    return result_string
-
 t = int(input())
 
 for case in range(t):
     n = int(input())
     s = list(input())
-    used = set()
-    counter = 0
-    while True:
-        continue_loop = False
-        for i in range(0, n - 1):
-            if (i not in used) and s[i] == 'A' and s[i + 1] == 'B':
-                s[i], s[i + 1] = s[i + 1], s[i]
-                continue_loop = True
-                used.add(i)
-                counter += 1
-        if not continue_loop:
-            break
-    
-    print(counter)
+    # method 1: not optimized
+    # unused = set(range(n))
+    # # used = set()
+    # # counter = 0
+    # while True:
+    #     continue_loop = False
+    #     for i in sorted(unused):
+    #         if i < n - 1:
+    #             if s[i] == 'A' and s[i + 1] == 'B':
+    #                 s[i], s[i + 1] = s[i + 1], s[i]
+    #                 continue_loop = True
+    #                 # used.add(i)
+    #                 unused.remove(i)
+    #                 # counter += 1
+    #     if not continue_loop:
+    #         break
+    # print(n - len(unused))
+
+    # method 2: perfect optimized
+    if "A" not in s or "B" not in s:
+        print(0)
+    else:
+        first_A = s.index("A")
+        reversed_s = s[::-1]  # Reverse the list
+        last_B = len(s) - reversed_s.index("B") - 1
+        if first_A > last_B:
+            print(0)
+        else:
+            print(last_B - first_A)
